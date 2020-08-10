@@ -18,7 +18,7 @@ def create_tables():
 def setup():
     aws_access_key_id = environ.get('AWS_ACCESS_KEY_ID')
     aws_secret_access_key = environ.get('AWS_SECRET_ACCESS_KEY')
-    stl_open_311_api_key = environ['STL_API_KEY']
+    stl_open_311_api_key = environ.get('STL_API_KEY')
 
     if not aws_access_key_id or not aws_secret_access_key:
         raise EnvironmentError(logging.error("Missing access key id or secret access key AWS credential"))

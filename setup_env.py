@@ -6,7 +6,7 @@ from db_utils import *
 from config import *
 
 
-def create_tables():
+def init_tables():
     existing_tables = db_client().list_tables()['TableNames']
 
     if REQUESTS_TABLE_NAME not in existing_tables:
@@ -37,7 +37,7 @@ def setup():
     if not stl_open_311_api_key:
         raise EnvironmentError(logging.error("API key for STL Open 311 API missing."))
 
-    create_tables()
+    init_tables()
 
 
 if __name__ == "__main__":

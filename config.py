@@ -21,7 +21,7 @@ SERVICES_KEY_SCHEMA = [
 SERVICE_DEFINITIONS_KEY_SCHEMA = [
     {
         'AttributeName': 'SERVICE_CODE',
-        'AttributeType': 'N'
+        'KeyType': 'HASH'
     },
 ]
 

@@ -8,11 +8,21 @@ from config import *
 
 def create_tables():
     existing_tables = db_client().list_tables()['TableNames']
+    request_table_exists, services_table_exists, services_definition_table_exists = False, False, False
 
     if REQUESTS_TABLE_NAME not in existing_tables:
         db_utils.create_table(REQUESTS_TABLE_NAME, REQUESTS_KEY_SCHEMA, REQUESTS_ATTR_DEF)
+        request_table_exists = True
     if SERVICES_TABLE_NAME not in existing_tables:
-        db_utils.create_table(SERVICES_KEY_SCHEMA, SERVICES_KEY_SCHEMA, SERVICES_ATTR_DEF)
+        db_utils.create_table(SERVICES_TABLE_NAME, SERVICES_KEY_SCHEMA, SERVICES_ATTR_DEF)
+        services_table_exists = True
+    if SERVICE_DEFINITIONS_TABLE_NAME not in existing_tables:
+        db_utils.create_table(SERVICE_DEFINITIONS_TABLE_NAME,
+                              SERVICE_DEFINITIONS_KEY_SCHEMA,
+                              SERVICE_DEFINITIONS_ATTR_DEF)
+        services_definition_table_exists = True
+
+    return request_table_exists, services_table_exists, services_definition_table_exists
 
 
 def setup():

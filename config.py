@@ -1,7 +1,7 @@
 # Table names
 REQUESTS_TABLE_NAME = 'requests'
 SERVICES_TABLE_NAME = 'services'
-SERVICE_DEFINITIONS_TABLE_NAME = 'service_definition'
+SERVICE_DEFINITIONS_TABLE_NAME = 'service_definitions'
 
 # Key Schemas
 REQUESTS_KEY_SCHEMA = [
@@ -18,7 +18,12 @@ SERVICES_KEY_SCHEMA = [
     },
 ]
 
-SERVICE_DEFINITIONS_KEY_SCHEMA = []
+SERVICE_DEFINITIONS_KEY_SCHEMA = [
+    {
+        'AttributeName': 'SERVICE_CODE',
+        'AttributeType': 'N'
+    },
+]
 
 # Attribute Definitions
 REQUESTS_ATTR_DEF = [
@@ -31,13 +36,19 @@ REQUESTS_ATTR_DEF = [
 
 SERVICES_ATTR_DEF = [
     {
-        'AttributeName': 'SERVICE_REQUEST_ID',
+        'AttributeName': 'SERVICE_CODE',
         'AttributeType': 'N'
     },
 
 ]
 
-SERVICE_DEFINITIONS_ATTR_DEF = []
+SERVICE_DEFINITIONS_ATTR_DEF = [
+    {
+        'AttributeName': 'SERVICE_CODE',
+        'AttributeType': 'N'
+    },
+
+]
 
 # API Urls
 STL_API_URL = 'https://www.stlouis-mo.gov/powernap/stlouis/api.cfm/'

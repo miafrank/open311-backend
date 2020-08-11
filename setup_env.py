@@ -2,27 +2,29 @@ import logging
 from os import environ
 
 from db import db_client
-import db_utils
+from db_utils import *
 from config import *
 
 
 def create_tables():
     existing_tables = db_client().list_tables()['TableNames']
-    request_table_exists, services_table_exists, services_definition_table_exists = False, False, False
 
     if REQUESTS_TABLE_NAME not in existing_tables:
-        db_utils.create_table(REQUESTS_TABLE_NAME, REQUESTS_KEY_SCHEMA, REQUESTS_ATTR_DEF)
-        request_table_exists = True
-    if SERVICES_TABLE_NAME not in existing_tables:
-        db_utils.create_table(SERVICES_TABLE_NAME, SERVICES_KEY_SCHEMA, SERVICES_ATTR_DEF)
-        services_table_exists = True
-    if SERVICE_DEFINITIONS_TABLE_NAME not in existing_tables:
-        db_utils.create_table(SERVICE_DEFINITIONS_TABLE_NAME,
-                              SERVICE_DEFINITIONS_KEY_SCHEMA,
-                              SERVICE_DEFINITIONS_ATTR_DEF)
-        services_definition_table_exists = True
+        logging.info(f'Creating {REQUESTS_TABLE_NAME} table and inserting data from STL API')
+        create_table(REQUESTS_TABLE_NAME, REQUESTS_KEY_SCHEMA, REQUESTS_ATTR_DEF)
+        insert_item(REQUESTS_TABLE_NAME)
 
-    return request_table_exists, services_table_exists, services_definition_table_exists
+    if SERVICES_TABLE_NAME not in existing_tables:
+        logging.info(f'Creating {SERVICES_TABLE_NAME} table and inserting data from STL API')
+        create_table(SERVICES_TABLE_NAME, SERVICES_KEY_SCHEMA, SERVICES_ATTR_DEF)
+        insert_item(SERVICES_TABLE_NAME)
+
+    if SERVICE_DEFINITIONS_TABLE_NAME not in existing_tables:
+        logging.info(f'Creating {SERVICE_DEFINITIONS_TABLE_NAME} table and inserting data from STL API')
+        create_table(SERVICE_DEFINITIONS_TABLE_NAME,
+                     SERVICE_DEFINITIONS_KEY_SCHEMA,
+                     SERVICE_DEFINITIONS_ATTR_DEF)
+        insert_item_with_id(SERVICE_DEFINITIONS_TABLE_NAME)
 
 
 def setup():
@@ -35,7 +37,6 @@ def setup():
     if not stl_open_311_api_key:
         raise EnvironmentError(logging.error("API key for STL Open 311 API missing."))
 
-    # If tables do not exist, create tables
     create_tables()
 
 

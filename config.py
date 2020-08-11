@@ -54,3 +54,10 @@ SERVICE_DEFINITIONS_ATTR_DEF = [
 STL_API_URL = 'https://www.stlouis-mo.gov/powernap/stlouis/api.cfm/'
 REQUESTS_RESOURCE = 'requests'
 SERVICES_RESOURCE = 'services'
+
+# STL Specific config values noted here in the API documentation under GET Service List:
+# https://www.stlouis-mo.gov/government/departments/information-technology/web-development/city-api/csb-api.cfm
+# Top level service/parent service types have a value of 0
+PARENT_SERVICE_CODE = 0
+# Level for the current service type definition, the top level is 1
+HIERARCHY_LEVEL = 1

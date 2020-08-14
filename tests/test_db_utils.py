@@ -1,31 +1,23 @@
 import json
-import os
-import sys
-
-import boto3
 from moto import mock_dynamodb2
+import pytest
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-parent_dir_path = os.path.abspath(os.path.join(dir_path, os.pardir))
-sys.path.insert(0, parent_dir_path)
-
-import db_utils
-import config
-from pprint import pprint
+from db_utils import *
+from config import *
 from db import *
 
-requests_table_name, services_table_name, service_definition_name = ('mock_request_table',
-                                                                     'mock_services_table',
-                                                                     'mock_service_definition')
+requests_table_name, services_table_name, service_definition_name = (REQUESTS_TABLE_NAME,
+                                                                     SERVICES_TABLE_NAME,
+                                                                     SERVICE_DEFINITIONS_TABLE_NAME)
 
 
 @mock_dynamodb2
-def dynamodb_setup(table_name):
+def dynamodb_setup(table_name, key_schema, attr_def):
     dynamodb = boto3.resource('dynamodb', 'us-east-1')
     dynamodb.create_table(
         TableName=table_name,
-        KeySchema=config.REQUESTS_KEY_SCHEMA,
-        AttributeDefinitions=config.REQUESTS_ATTR_DEF,
+        KeySchema=key_schema,
+        AttributeDefinitions=attr_def,
         ProvisionedThroughput={
             'ReadCapacityUnits': 1,
             'WriteCapacityUnits': 1
@@ -41,15 +33,24 @@ def load_resource(resource_path):
 
 
 @mock_dynamodb2
-def test_insert_item():
-    response = load_resource('/Users/miafrank/Dev/open311-backend/tests/requests.json')
+@pytest.mark.parametrize("table_name, key_schema, attr_def, response",
+                         [(services_table_name,
+                           SERVICES_KEY_SCHEMA,
+                           SERVICES_ATTR_DEF,
+                           load_resource('tests/services.json')),
+                          (requests_table_name,
+                           REQUESTS_KEY_SCHEMA,
+                           REQUESTS_ATTR_DEF,
+                           load_resource('tests/requests.json'))])
+def test_insert_item(table_name, key_schema, attr_def, response):
     # moto not up to date with boto3 to allow empty attributes
     # overwrite empty attributes with None
     for res in response:
         for k, v in res.items():
             if not v:
                 res[k] = None
-    requests_table = dynamodb_setup(requests_table_name)
-    item = db_utils.insert_item(requests_table, response)
-
+    requests_table = dynamodb_setup(table_name, key_schema, attr_def)
+    item = insert_item(requests_table, response)
     assert item['ResponseMetadata']['HTTPStatusCode'] == 200
+
+

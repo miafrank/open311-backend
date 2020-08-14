@@ -19,11 +19,12 @@ def create_table(table_name, key_schema, attr_def):
 def insert_item(table_name_resource, response):
     # table name corresponds directly to resources "requests" and "services"
     for item in response:
-        if "LAT" or "LONG" in item:
+        if table_name_resource.name == REQUESTS_TABLE_NAME:
             # store LAT, LONG as strings - DynamoDB cannot store numbers with precision points
             item["LAT"] = str(item["LAT"])
             item["LONG"] = str(item["LONG"])
-            table_name_resource.put_item(Item=item)
+            return table_name_resource.put_item(Item=item)
+        return table_name_resource.put_item(Item=item)
 
 
 def insert_item_with_id(table_name):

@@ -32,16 +32,16 @@ def load_resource(resource_path):
 
 
 @mock_dynamodb2
-@pytest.mark.parametrize("table_name, key_schema, attr_def, response",
+@pytest.mark.parametrize("table_name, key_schema, attr_def, response, expected",
                          [(services_table_name,
                            SERVICES_KEY_SCHEMA,
                            SERVICES_ATTR_DEF,
-                           load_resource('tests/services.json')),
+                           load_resource('tests/services.json'), 200),
                           (requests_table_name,
                            REQUESTS_KEY_SCHEMA,
                            REQUESTS_ATTR_DEF,
-                           load_resource('tests/requests.json'))])
-def test_insert_item(table_name, key_schema, attr_def, response):
+                           load_resource('tests/requests.json'), 200)])
+def test_insert_item(table_name, key_schema, attr_def, response, expected):
     # moto not up to date with boto3 to allow empty attributes
     # overwrite empty attributes with None
     for res in response:
@@ -50,7 +50,7 @@ def test_insert_item(table_name, key_schema, attr_def, response):
                 res[k] = None
     requests_table = dynamodb_setup(table_name, key_schema, attr_def)
     item = insert_item(requests_table, response)
-    assert item['ResponseMetadata']['HTTPStatusCode'] == 200
+    assert item['ResponseMetadata']['HTTPStatusCode'] == expected
 
 
 @mock_dynamodb2

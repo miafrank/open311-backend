@@ -1,10 +1,9 @@
-import json
 from moto import mock_dynamodb2
 import pytest
+import json
 
 from db_utils import *
 from config import *
-from db import *
 
 requests_table_name, services_table_name, service_definition_name = (REQUESTS_TABLE_NAME,
                                                                      SERVICES_TABLE_NAME,
@@ -54,3 +53,16 @@ def test_insert_item(table_name, key_schema, attr_def, response):
     assert item['ResponseMetadata']['HTTPStatusCode'] == 200
 
 
+@mock_dynamodb2
+def test_insert_item_with_id():
+    response = load_resource('tests/services.json')
+    for res in response:
+        for k, v in res.items():
+            if not v:
+                res[k] = None
+
+    service_definition_table = dynamodb_setup(SERVICE_DEFINITIONS_TABLE_NAME,
+                                              SERVICE_DEFINITIONS_KEY_SCHEMA,
+                                              SERVICE_DEFINITIONS_ATTR_DEF)
+    item = insert_service_with_id(service_definition_table, response)
+    assert item['ResponseMetadata']['HTTPStatusCode'] == 200

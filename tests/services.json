@@ -1,38 +1,26 @@
 [
   {
-    "SERVICE_NAME": "Air Pollution",
-    "GROUP": "Air Pollution",
-    "HIERARCHY_LEVEL": 1,
-    "DESCRIPTION": "Asbestos Pollution, Demolition Dust, Vehicle Idling, Unresolved Concerns",
-    "SERVICE_CODE": 983,
+    "SERVICE_NAME": "Broken/Hanging Limb",
+    "GROUP": "Trees",
+    "HIERARCHY_LEVEL": 2,
+    "DESCRIPTION": "Broken/Hanging Limb",
+    "SERVICE_CODE": 1864,
     "METADATA": true,
     "TYPE": "realtime",
     "KEYWORDS": "",
-    "GROUP_ID": 983,
-    "PARENT_SERVICE_CODE": 0
+    "GROUP_ID": 18,
+    "PARENT_SERVICE_CODE": 18
   },
   {
-    "SERVICE_NAME": "Asbestos pollution",
-    "GROUP": "Air Pollution",
-    "HIERARCHY_LEVEL": 2,
-    "DESCRIPTION": "Asbestos",
-    "SERVICE_CODE": 981,
+    "SERVICE_NAME": "Inspect for lead paint",
+    "GROUP": "Residential Property Inspections - Interior",
+    "HIERARCHY_LEVEL": 3,
+    "DESCRIPTION": "Lead Insp",
+    "SERVICE_CODE": 886,
     "METADATA": true,
     "TYPE": "realtime",
     "KEYWORDS": "",
-    "GROUP_ID": 983,
-    "PARENT_SERVICE_CODE": 983
-    },
-    {
-    "SERVICE_NAME": "Demolition blowing dust",
-    "GROUP": "Air Pollution",
-    "HIERARCHY_LEVEL": 2,
-    "DESCRIPTION": "Demo Blowing Dust",
-    "SERVICE_CODE": 877,
-    "METADATA": true,
-    "TYPE": "realtime",
-    "KEYWORDS": "",
-    "GROUP_ID": 983,
-    "PARENT_SERVICE_CODE": 983
+    "GROUP_ID": 867,
+    "PARENT_SERVICE_CODE": 894
     }
 ]

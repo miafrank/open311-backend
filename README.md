@@ -28,6 +28,3 @@ the same official contact centers in any government (only non emergency issues).
 
 ### Create tables and insert STL data into DynamoDB
 `$ python setup_env.py`
-
-### Run tests
-`$ pytest tests/test_db_utils.py --disable-pytest-warnings`

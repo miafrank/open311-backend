@@ -6,7 +6,7 @@ The end in mind is a mobile application that allows users to easily report conce
 (A comparable app to the end in mind would be [Tulsa311](https://apps.apple.com/us/app/tulsa-311/id1453372535))
 
 ## [GeoReport v2](http://wiki.open311.org/GeoReport_v2/#apps--resources)
-allows developers to build applications to view and report issues which 
+Allows developers to build applications to view and report issues which 
 government entities (like cities) are responsible for addressing. Traditionally, 
 “calls for service” or “service requests” have been handled by custom web forms or 
 call centers (311 phone number or other short-codes). The API allows both government 

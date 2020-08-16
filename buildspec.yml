@@ -1,0 +1,15 @@
+version: 0.1
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.7.7
+    commands:
+      - pip install pytest
+      - pip install boto3
+      - pip install moto
+      - pip install requests
+  build:
+    commands:
+      - echo running tests
+      - python -m pytest

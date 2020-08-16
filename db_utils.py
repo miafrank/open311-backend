@@ -1,9 +1,5 @@
-from pprint import pprint
-from os import environ
-
-from api_utils import get_requests_from_stl, get_resource_response_with_id
-from db import *
 from config import *
+from db import *
 
 
 def create_table(table_name, key_schema, attr_def):
@@ -16,7 +12,7 @@ def create_table(table_name, key_schema, attr_def):
                                       })
 
 
-def insert_item(table_name_resource, response):
+def insert_resource(table_name_resource, response):
     # table name corresponds directly to resources "requests" and "services"
     for item in response:
         if table_name_resource.name == REQUESTS_TABLE_NAME:
@@ -27,10 +23,7 @@ def insert_item(table_name_resource, response):
         return table_name_resource.put_item(Item=item)
 
 
-def insert_item_with_id(table_name):
-    stl_open_311_api_key = environ['STL_API_KEY']
-
-    response = get_requests_from_stl(STL_API_URL, SERVICES_RESOURCE, stl_open_311_api_key)
+def get_child_service_codes(response):
     # filter out top level parent services with no service definition
     service_definitions = [service
                            for service in response
@@ -39,16 +32,9 @@ def insert_item_with_id(table_name):
 
     # get a list of service codes
     service_codes = list(map(lambda x: x["SERVICE_CODE"], service_definitions))
-    service_definition_table = db_resource().Table(table_name)
-
-    for service_code in service_codes:
-        # get service definition by id
-        item = get_resource_response_with_id(STL_API_URL, SERVICES_RESOURCE, service_code, stl_open_311_api_key)
-        item = service_definition_table.put_item(Item=item)
-        return item
+    return service_codes
 
 
-def scan_table(table_name):
-    table = db_client.scan(TableName=table_name)
-    items = [item for item in table['Items']]
-    return pprint(items[0:10])
+def insert_resources_with_id(table_name_resource, response):
+    for item in response:
+        return table_name_resource.put_item(Item=item)

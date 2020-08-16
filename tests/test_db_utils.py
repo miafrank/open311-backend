@@ -1,6 +1,7 @@
 from moto import mock_dynamodb2
 import pytest
 import json
+from http import HTTPStatus
 
 from db_utils import *
 from config import *
@@ -36,11 +37,11 @@ def load_resource(resource_path):
                          [(services_table_name,
                            SERVICES_KEY_SCHEMA,
                            SERVICES_ATTR_DEF,
-                           load_resource('tests/services.json'), 200),
+                           load_resource('tests/services.json'), HTTPStatus.OK),
                           (requests_table_name,
                            REQUESTS_KEY_SCHEMA,
                            REQUESTS_ATTR_DEF,
-                           load_resource('tests/requests.json'), 200)])
+                           load_resource('tests/requests.json'), HTTPStatus.OK)])
 def test_insert_item(table_name, key_schema, attr_def, response, expected):
     # moto not up to date with boto3 to allow empty attributes
     # overwrite empty attributes with None
@@ -49,20 +50,27 @@ def test_insert_item(table_name, key_schema, attr_def, response, expected):
             if not v:
                 res[k] = None
     requests_table = dynamodb_setup(table_name, key_schema, attr_def)
-    item = insert_item(requests_table, response)
+    item = insert_resource(requests_table, response)
     assert item['ResponseMetadata']['HTTPStatusCode'] == expected
 
 
 @mock_dynamodb2
-def test_insert_item_with_id():
-    response = load_resource('tests/services.json')
-    for res in response:
-        for k, v in res.items():
-            if not v:
-                res[k] = None
+@pytest.mark.parametrize("table_name, key_schema, attr_def, service_codes, service_definition_response, expected",
+                         [(service_definition_name,
+                           SERVICE_DEFINITIONS_KEY_SCHEMA,
+                           SERVICES_ATTR_DEF,
+                           load_resource('tests/services.json'),
+                           load_resource('tests/service_definition_886.json'), HTTPStatus.OK),
+                          (service_definition_name,
+                           SERVICE_DEFINITIONS_KEY_SCHEMA,
+                           SERVICES_ATTR_DEF,
+                           load_resource('tests/services.json'),
+                           load_resource('tests/service_definition_1864.json'), HTTPStatus.OK)])
+def test_insert_item_with_id(table_name, key_schema, attr_def, service_codes, service_definition_response, expected):
+    service_definition_table = dynamodb_setup(table_name,
+                                              key_schema,
+                                              attr_def)
+    item = insert_resources_with_id(service_definition_table,
+                                    service_definition_response)
 
-    service_definition_table = dynamodb_setup(SERVICE_DEFINITIONS_TABLE_NAME,
-                                              SERVICE_DEFINITIONS_KEY_SCHEMA,
-                                              SERVICE_DEFINITIONS_ATTR_DEF)
-    item = insert_service_with_id(service_definition_table, response)
-    assert item['ResponseMetadata']['HTTPStatusCode'] == 200
+    assert item['ResponseMetadata']['HTTPStatusCode'] == expected

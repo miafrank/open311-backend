@@ -1,0 +1,40 @@
+[
+{
+    "ATTRIBUTES": [
+    {
+            "ORDER": 1,
+            "CODE": 250,
+            "DATATYPE": "singleValueList",
+            "DESCRIPTION": "Reason home meets eligibility for free inspection: This request requires your name and phone number when prompted.",
+            "VARIABLE": true,
+            "DATATYPE_DESCRIPTION": "",
+            "REQUIRED": true,
+            "VALUES": [
+                {
+                    "KEY": 790,
+                    "NAME": "Child under 6 lives here. "
+                },
+                {
+                    "KEY": 791,
+                    "NAME": "Pregnant woman lives here. "
+                },
+                {
+                    "KEY": 792,
+                    "NAME": "Child under 6 visits frequently. "
+                }
+            ]
+        },
+        {
+            "ORDER": 2,
+            "CODE": "detail_description",
+            "DESCRIPTION": "Describe the details regarding your request, such as exact location (front, rear, etc.), description of problem, and any other relevant facts that may help the inspector resolve your issue.",
+            "VARIABLE": true,
+            "DATETYPE": "text",
+            "DATATYPE_DESCRIPTION": "Limit to 250 characters.",
+            "REQUIRED": false,
+            "VALUES": []
+        }
+    ],
+    "SERVICE_CODE": 886
+}
+]

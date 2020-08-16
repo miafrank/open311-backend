@@ -1,0 +1,17 @@
+[
+ {
+    "ATTRIBUTES": [
+        {
+            "ORDER": 1,
+            "CODE": "detail_description",
+            "DESCRIPTION": "Describe the details regarding your request, such as exact location (front, rear, etc.), description of problem, and any other relevant facts that may help the inspector resolve your issue.",
+            "VARIABLE": true,
+            "DATETYPE": "text",
+            "DATATYPE_DESCRIPTION": "Limit to 470 characters.",
+            "REQUIRED": true,
+            "VALUES": []
+        }
+    ],
+    "SERVICE_CODE": 1864
+}
+]

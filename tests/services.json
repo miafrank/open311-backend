@@ -22,5 +22,17 @@
     "KEYWORDS": "",
     "GROUP_ID": 867,
     "PARENT_SERVICE_CODE": 894
-    }
+    },
+  {
+    "SERVICE_NAME": "Air Pollution",
+    "GROUP": "Air Pollution",
+    "HIERARCHY_LEVEL": 1,
+    "DESCRIPTION": "Asbestos Pollution, Demolition Dust, Vehicle Idling, Unresolved Concerns",
+    "SERVICE_CODE": 983,
+    "METADATA": true,
+    "TYPE": "realtime",
+    "KEYWORDS": "",
+    "GROUP_ID": 983,
+    "PARENT_SERVICE_CODE": 0
+  }
 ]

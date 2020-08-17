@@ -32,19 +32,6 @@ def load_resource(resource_path):
 
 
 @mock_dynamodb2
-@pytest.mark.parametrize("table_name, key_schema, attr_def",
-                         [(requests_table_name,
-                           REQUESTS_KEY_SCHEMA,
-                           REQUESTS_ATTR_DEF),
-                          (services_table_name,
-                           SERVICES_KEY_SCHEMA,
-                           SERVICES_ATTR_DEF)])
-def test_create_table(table_name, key_schema, attr_def):
-    table = create_table(table_name, key_schema, attr_def)
-    assert table == boto3.resource('dynamodb').Table(name=table_name)
-
-
-@mock_dynamodb2
 @pytest.mark.parametrize("table_name, key_schema, attr_def, response, expected",
                          [(services_table_name,
                            SERVICES_KEY_SCHEMA,

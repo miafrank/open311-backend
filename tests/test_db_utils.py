@@ -3,6 +3,7 @@ from http import HTTPStatus
 
 import pytest
 from moto import mock_dynamodb2
+import boto3
 
 from config import *
 from db_utils import *

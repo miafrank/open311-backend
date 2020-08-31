@@ -15,9 +15,11 @@ the same official contact centers in any government (only non emergency issues).
 
 
 ## Setup
-### Project setup
-1. Create virtual env and install dependencies (from `Pipfile`)
+### Project Setup
+1. Set up virtual environment using [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html) in project directory: 
+    1. `$ pip install pipenv`
     1. `$ pipenv install`
+    1. `$ pipenv shell`
     
 1. Set environment variables in `~/.bash_profile` or `~/.zshrc`: 
     1. `export AWS_ACCESS_KEY_ID=`
@@ -28,3 +30,6 @@ the same official contact centers in any government (only non emergency issues).
 
 ### Create tables and insert STL data into DynamoDB
 `$ python setup_env.py`
+
+### Run Tests
+1. `$ python -m unittest discover`

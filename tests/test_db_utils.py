@@ -36,11 +36,13 @@ def load_resource(resource_path):
                          [(services_table_name,
                            SERVICES_KEY_SCHEMA,
                            SERVICES_ATTR_DEF,
-                           load_resource('tests/services.json'), HTTPStatus.OK),
+                           load_resource('tests/services.json'),
+                           HTTPStatus.OK),
                           (requests_table_name,
                            REQUESTS_KEY_SCHEMA,
                            REQUESTS_ATTR_DEF,
-                           load_resource('tests/requests.json'), HTTPStatus.OK)])
+                           load_resource('tests/requests.json'),
+                           HTTPStatus.OK)])
 def test_insert_item(table_name, key_schema, attr_def, response, expected):
     # moto not up to date with boto3 to allow empty attributes
     # overwrite empty attributes with None

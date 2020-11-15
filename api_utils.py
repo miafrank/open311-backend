@@ -12,7 +12,9 @@ def build_open311_resources_url_with_id(api_endpoint, resource, service_code, ap
 
 
 def get_requests_from_stl(api_endpoint, resource, api_key):
-    return requests.get(build_open311_resources_url(api_endpoint, resource, api_key)).json()
+    url = build_open311_resources_url(api_endpoint, resource, api_key)
+    resp = requests.get(url).json()
+    return resp
 
 
 def get_resource_response_with_id(api_endpoint, resource, service_code, api_key):

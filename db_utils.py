@@ -19,8 +19,9 @@ def insert_resource(table_name_resource, response):
             # store LAT, LONG as strings - DynamoDB cannot store numbers with precision points
             item["LAT"] = str(item["LAT"])
             item["LONG"] = str(item["LONG"])
-            return table_name_resource.put_item(Item=item)
-        return table_name_resource.put_item(Item=item)
+            table_name_resource.put_item(Item=item)
+        else:
+            table_name_resource.put_item(Item=item)
 
 
 def get_child_service_codes(response):
@@ -31,10 +32,9 @@ def get_child_service_codes(response):
                            or service["HIERARCHY_LEVEL"] != HIERARCHY_LEVEL]
 
     # get a list of service codes
-    service_codes = list(map(lambda x: x["SERVICE_CODE"], service_definitions))
-    return service_codes
+    return list(map(lambda x: x["SERVICE_CODE"], service_definitions))
 
 
 def insert_resources_with_id(table_name_resource, response):
     for item in response:
-        return table_name_resource.put_item(Item=item)
+        table_name_resource.put_item(Item=item)

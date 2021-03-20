@@ -36,12 +36,12 @@ def load_resource(resource_path):
                          [(services_table_name,
                            SERVICES_KEY_SCHEMA,
                            SERVICES_ATTR_DEF,
-                           load_resource('tests/services.json'),
+                           load_resource('services.json'),
                            HTTPStatus.OK),
                           (requests_table_name,
                            REQUESTS_KEY_SCHEMA,
                            REQUESTS_ATTR_DEF,
-                           load_resource('tests/requests.json'),
+                           load_resource('requests.json'),
                            HTTPStatus.OK)])
 def test_insert_item(table_name, key_schema, attr_def, response, expected):
     # moto not up to date with boto3 to allow empty attributes
@@ -52,6 +52,7 @@ def test_insert_item(table_name, key_schema, attr_def, response, expected):
                 res[k] = None
     requests_table = dynamodb_setup(table_name, key_schema, attr_def)
     item = insert_resource(requests_table, response)
+
     assert item['ResponseMetadata']['HTTPStatusCode'] == expected
 
 
@@ -60,13 +61,13 @@ def test_insert_item(table_name, key_schema, attr_def, response, expected):
                          [(service_definition_name,
                            SERVICE_DEFINITIONS_KEY_SCHEMA,
                            SERVICES_ATTR_DEF,
-                           load_resource('tests/services.json'),
-                           load_resource('tests/service_definition_886.json'), HTTPStatus.OK),
+                           load_resource('services.json'),
+                           load_resource('service_definition_886.json'), HTTPStatus.OK),
                           (service_definition_name,
                            SERVICE_DEFINITIONS_KEY_SCHEMA,
                            SERVICES_ATTR_DEF,
-                           load_resource('tests/services.json'),
-                           load_resource('tests/service_definition_1864.json'), HTTPStatus.OK)])
+                           load_resource('services.json'),
+                           load_resource('service_definition_1864.json'), HTTPStatus.OK)])
 def test_insert_item_with_id(table_name, key_schema, attr_def, service_codes, service_definition_response, expected):
     service_definition_table = dynamodb_setup(table_name,
                                               key_schema,
@@ -78,7 +79,7 @@ def test_insert_item_with_id(table_name, key_schema, attr_def, service_codes, se
 
 
 @pytest.mark.parametrize("response, expected",
-                         [(load_resource('tests/services.json'), 2),
+                         [(load_resource('services.json'), 2),
                           ([], 0)])
 def test_child_service_codes(response, expected):
     service_codes = get_child_service_codes(response)

@@ -9,5 +9,5 @@ def db_resource():
     return boto3.resource('dynamodb')
 
 
-def db_resource_table(table_name):
+def db_table(table_name):
     return db_resource().Table(table_name)

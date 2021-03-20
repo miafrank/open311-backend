@@ -20,8 +20,11 @@ def insert_resource(table_name_resource, response):
             item["LAT"] = str(item["LAT"])
             item["LONG"] = str(item["LONG"])
             table_name_resource.put_item(Item=item)
-        else:
+        elif table_name_resource.name == SERVICES_TABLE_NAME:
             table_name_resource.put_item(Item=item)
+        else:
+            # TODO test this and come up with better reponse
+            return "Table not found"
 
 
 def get_child_service_codes(response):
@@ -31,10 +34,10 @@ def get_child_service_codes(response):
                            if service["PARENT_SERVICE_CODE"] != PARENT_SERVICE_CODE
                            or service["HIERARCHY_LEVEL"] != HIERARCHY_LEVEL]
 
-    # get a list of service codes
     return list(map(lambda x: x["SERVICE_CODE"], service_definitions))
 
 
 def insert_resources_with_id(table_name_resource, response):
+    # todo this is fucked. this interface is not like the others. need to parse service code in db item
     for item in response:
-        table_name_resource.put_item(Item=item)
+        table_name_resource.put_item(Item={'SERVICE_CODE': response['SERVICE_CODE'], 'ITEMS': item})

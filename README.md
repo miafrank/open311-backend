@@ -21,7 +21,7 @@ the same official contact centers in any government (only non emergency issues).
     1. `$ pipenv install`
     1. `$ pipenv shell`
     
-1. Set environment variables in `~/.bash_profile` or `~/.zshrc`: 
+1. Set environment variables in `~/.zshrc`: 
     1. `export AWS_ACCESS_KEY_ID=`
     2. `export AWS_SECRET_ACCESS_KEY=`
     3. `export STL_API_KEY=`

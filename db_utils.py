@@ -19,9 +19,9 @@ def insert_resource(table_name_resource, response):
             # store LAT, LONG as strings - DynamoDB cannot store numbers with precision points
             item["LAT"] = str(item["LAT"])
             item["LONG"] = str(item["LONG"])
-            table_name_resource.put_item(Item=item)
+            return table_name_resource.put_item(Item=item)
         elif table_name_resource.name == SERVICES_TABLE_NAME:
-            table_name_resource.put_item(Item=item)
+            return table_name_resource.put_item(Item=item)
         else:
             # TODO test this and come up with better reponse
             return "Table not found"
@@ -39,5 +39,6 @@ def get_child_service_codes(response):
 
 def insert_resources_with_id(table_name_resource, response):
     # todo this is fucked. this interface is not like the others. need to parse service code in db item
-    for item in response:
-        table_name_resource.put_item(Item={'SERVICE_CODE': response['SERVICE_CODE'], 'ITEMS': item})
+    for i in range(len(response)):
+        return table_name_resource.put_item(Item={'SERVICE_CODE': response[i]['SERVICE_CODE'],
+                                                  'ITEMS': response[i]['ATTRIBUTES']})

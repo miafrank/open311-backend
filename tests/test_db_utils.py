@@ -4,6 +4,7 @@ from http import HTTPStatus
 import pytest
 from moto import mock_dynamodb2
 from db_utils import *
+import os
 
 requests_table_name, services_table_name, service_definition_name = (REQUESTS_TABLE_NAME,
                                                                      SERVICES_TABLE_NAME,
@@ -26,8 +27,9 @@ def dynamodb_setup(table_name, key_schema, attr_def):
 
 
 def load_resource(resource_path):
-    with open(resource_path) as resource:
-        resource = json.load(resource)
+    abs_dir = os.path.dirname(os.path.abspath(__file__))
+    with open(f'{abs_dir}/{resource_path}') as f:
+        resource = json.load(f)
     return resource
 
 
@@ -62,12 +64,14 @@ def test_insert_item(table_name, key_schema, attr_def, response, expected):
                            SERVICE_DEFINITIONS_KEY_SCHEMA,
                            SERVICES_ATTR_DEF,
                            load_resource('services.json'),
-                           load_resource('service_definition_886.json'), HTTPStatus.OK),
+                           load_resource('service_definition_886.json'),
+                           HTTPStatus.OK),
                           (service_definition_name,
                            SERVICE_DEFINITIONS_KEY_SCHEMA,
                            SERVICES_ATTR_DEF,
                            load_resource('services.json'),
-                           load_resource('service_definition_1864.json'), HTTPStatus.OK)])
+                           load_resource('service_definition_1864.json'),
+                           HTTPStatus.OK)])
 def test_insert_item_with_id(table_name, key_schema, attr_def, service_codes, service_definition_response, expected):
     service_definition_table = dynamodb_setup(table_name,
                                               key_schema,

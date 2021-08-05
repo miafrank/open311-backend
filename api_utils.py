@@ -23,7 +23,7 @@ def fetch_by_id(resource, code):
 
 
 def build_url(**kwargs):
-    if kwargs['code']:
-        return f'{base_api_url}{kwargs["resource"]}/{kwargs["code"]}{api_headers}{api_key}'
+    if kwargs.get('code'):
+        return f'{base_api_url()}{kwargs["resource"]}/{kwargs["code"]}{api_headers()}{api_key()}'
     else:
-        return f'{base_api_url}{kwargs["resource"]}{api_headers}{api_key}'
+        return f'{base_api_url()}{kwargs["resource"]}{api_headers()}{api_key()}'

@@ -1,3 +1,5 @@
+import os
+
 from dotenv import load_dotenv
 import logging
 from os import getenv
@@ -16,7 +18,7 @@ def setup_env():
 def _get_env(env_name, msg):
     env = getenv(env_name)
     if env:
-        return env
+        return str(env)
     else:
         raise KeyError(logging.error(msg))
 

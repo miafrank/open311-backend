@@ -34,7 +34,7 @@ jobs:
         pipenv graph
     - name: Test with pytest
       run: |
-        python3 -m pytest
+        pipenv run pytest
     - name: Safetey check - safety
       run:
         pipenv run safety check

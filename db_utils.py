@@ -1,15 +1,4 @@
 from config import *
-from db import *
-
-
-def create_table(table_name, key_schema, attr_def):
-    return db_resource().create_table(TableName=table_name,
-                                      KeySchema=key_schema,
-                                      AttributeDefinitions=attr_def,
-                                      ProvisionedThroughput={
-                                          'ReadCapacityUnits': 1,
-                                          'WriteCapacityUnits': 1
-                                      })
 
 
 def insert_resource(table_name_resource, response):

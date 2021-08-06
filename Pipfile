@@ -10,6 +10,9 @@ boto3 = "*"
 requests = "*"
 pytest = "*"
 moto = "*"
+python-dotenv = "*"
+pytest-dotenv = "*"
+safety = "*"
 
 [requires]
 python_version = "3.7"

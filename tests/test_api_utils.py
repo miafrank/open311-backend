@@ -1,16 +1,15 @@
-from api_utils import *
+from api_utils import build_url
 
-
-api_endpoint, resource, api_key = 'http://endpoint/', 'services', 'api_key'
+resource, code = 'services', '15'
 
 
 def test_build_open311_resources_url():
-    url = build_open311_resources_url(api_endpoint, resource, api_key)
-    expected = 'http://endpoint/services.json?api_key=api_key'
+    url = build_url(resource=resource)
+    expected = 'https://test_api.com/services.json?api_key=123'
     assert url == expected
 
 
 def test_build_open311_resources_url_with_id():
-    url = build_open311_resources_url_with_id(api_endpoint, resource, '1500', api_key)
-    expected = 'http://endpoint/services/1500.json?api_key=api_key'
+    url = build_url(resource=resource, code=code)
+    expected = 'https://test_api.com/services/15.json?api_key=123'
     assert url == expected

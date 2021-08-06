@@ -1,10 +1,12 @@
 import json
 from http import HTTPStatus
+import os
 
 import pytest
 from moto import mock_dynamodb2
+import boto3
+
 from db_utils import *
-import os
 
 requests_table_name, services_table_name, service_definition_name = (REQUESTS_TABLE_NAME,
                                                                      SERVICES_TABLE_NAME,

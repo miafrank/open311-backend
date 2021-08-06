@@ -7,6 +7,7 @@ from os import getenv
 
 def setup_env():
     try:
+        # TODO - maybe instead of reading this in - there is a dotenv method to use?
         open('env', 'r')
         load_dotenv()
     except(IOError, ValueError):

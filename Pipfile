@@ -13,6 +13,7 @@ moto = "*"
 python-dotenv = "*"
 pytest-dotenv = "*"
 safety = "*"
+sqlalchemy = "*"
 
 [requires]
 python_version = "3.7"

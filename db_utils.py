@@ -2,7 +2,6 @@ from config import *
 
 
 def insert_resource(table_name_resource, response):
-    # table name corresponds directly to resources "requests" and "services"
     for item in response:
         if table_name_resource.name == REQUESTS_TABLE_NAME:
             # store LAT, LONG as strings - DynamoDB cannot store numbers with precision points

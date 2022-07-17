@@ -18,7 +18,7 @@ class Service(Base):
     service_code = Column(String, nullable=False, primary_key=True)
     service_name = Column(String, nullable=False)
     description = Column(String)
-    # TODO - if true this indicates a parent service with a definition
+    # TODO - if true this indicates a parent service with a definition, will probably need a helper for this
     metadata = Column(Boolean)
     # This is a String in original spec but it's a set of Enums
     type = Column(Enum, nullable=False)
